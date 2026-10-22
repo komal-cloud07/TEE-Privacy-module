@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEE - LLM Privacy</title>
+<title>TEE Privacy Module</title>
 <style>
   body { margin:0; background:#0f1115; color:white; font-family: Arial; display:flex; flex-direction:column; align-items:center; min-height:100vh; }
-  .header { margin-top:20px; text-align:center; }
-  .header h1 { font-size:26px; margin:0; }
-  .header p { color:#facc15; font-weight:bold; font-size:18px; }
+  .header { margin-top:30px; text-align:center; }
+  .header h1 { font-size:28px; margin:0; color:#e5e7eb; }
   #mindmap { width:95%; max-width:900px; height:600px; position:relative; margin-top:20px; }
   .node { position:absolute; background:#2a2e39; border-radius:8px; padding:10px 16px; cursor:pointer; transition:all 0.3s; font-size:13px; border:1px solid #3a3f50; }
-  .node:hover { transform:scale(1.05); border-color:#facc15; }
+  .node:hover { transform:scale(1.05); border-color:#60a5fa; }
   .node.root { background:#5a5f8a; left:20px; top:50%; font-weight:bold; font-size:14px; }
   .node.level1 { background:#2a2e39; opacity:0; }
   .node.level2 { background:#1f2937; font-size:12px; opacity:0; }
@@ -23,12 +22,12 @@
 </head>
 <body>
 <div class="header">
-  <h1>Private LLM Privacy - This won me 2.3 lakhs 🔥</h1>
+  <h1>TEE (Trusted Execution Environments)</h1>
 </div>
 <div id="mindmap">
   <div class="node root" id="root">TEE (Trusted Execution Environments)</div>
 </div>
-<div class="hint">👆 Root var click kar - mag pratyek node var click kar, video sarka next yeil</div>
+<div class="hint">👆 Root var click kar - video sarkha next yeil</div>
 
 <script>
 const map = document.getElementById('mindmap');
@@ -56,9 +55,7 @@ const data = {
     {id:'p3', text:'Data confidentiality', x:580, y:430}
   ]
 };
-
 let shown = new Set();
-
 function createNode(item, levelClass) {
   const div = document.createElement('div');
   div.className = `node ${levelClass}`;
@@ -79,7 +76,6 @@ function createNode(item, levelClass) {
   });
   map.appendChild(div);
 }
-
 function drawLine(parent, child) {
   const pX = parent.x + 50;
   const pY = parent.y + 10;
@@ -95,7 +91,6 @@ function drawLine(parent, child) {
   line.style.transform = `rotate(${angle}deg)`;
   map.appendChild(line);
 }
-
 document.getElementById('root').addEventListener('click', () => {
   if(!shown.has('root')) {
     shown.add('root');
