@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEE - LLM Privacy</title>
+<style>
+  body { margin:0; background:#0f1115; color:white; font-family: Arial; display:flex; flex-direction:column; align-items:center; min-height:100vh; }
+  .header { margin-top:20px; text-align:center; }
+  .header h1 { font-size:26px; margin:0; }
+  .header p { color:#facc15; font-weight:bold; font-size:18px; }
+  #mindmap { width:95%; max-width:900px; height:600px; position:relative; margin-top:20px; }
+  .node { position:absolute; background:#2a2e39; border-radius:8px; padding:10px 16px; cursor:pointer; transition:all 0.3s; font-size:13px; border:1px solid #3a3f50; }
+  .node:hover { transform:scale(1.05); border-color:#facc15; }
+  .node.root { background:#5a5f8a; left:20px; top:50%; font-weight:bold; font-size:14px; }
+  .node.level1 { background:#2a2e39; opacity:0; }
+  .node.level2 { background:#1f2937; font-size:12px; opacity:0; }
+  .node.show { opacity:1; }
+  .line { position:absolute; height:1px; background:#555; transform-origin:left; opacity:0; }
+  .line.show { opacity:1; }
+  .hint { margin-top:10px; color:#888; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Private LLM Privacy - This won me 2.3 lakhs 🔥</h1>
+</div>
+<div id="mindmap">
+  <div class="node root" id="root">TEE (Trusted Execution Environments)</div>
+</div>
+<div class="hint">👆 Root var click kar - mag pratyek node var click kar, video sarka next yeil</div>
+
+<script>
+const map = document.getElementById('mindmap');
+const data = {
+  'root': [
+    {id:'risks', text:'Traditional LLM Risks', x:320, y:50},
+    {id:'solutions', text:'TEE Solutions', x:320, y:200},
+    {id:'practical', text:'Practical Application', x:320, y:350}
+  ],
+  'risks': [
+    {id:'r1', text:'Data logged on servers', x:580, y:10},
+    {id:'r2', text:'Data leaks', x:580, y:50},
+    {id:'r3', text:'Model training usage', x:580, y:90},
+    {id:'r4', text:'Zero user control', x:580, y:130}
+  ],
+  'solutions': [
+    {id:'s1', text:'Secure enclave storage', x:580, y:180},
+    {id:'s2', text:'Encryption from cloud', x:580, y:220},
+    {id:'s3', text:'Hidden from GPUs', x:580, y:260},
+    {id:'s4', text:'Mathematical safety guarantees', x:580, y:300}
+  ],
+  'practical': [
+    {id:'p1', text:'Hackathon success', x:580, y:350},
+    {id:'p2', text:'Privacy platforms', x:580, y:390},
+    {id:'p3', text:'Data confidentiality', x:580, y:430}
+  ]
+};
+
+let shown = new Set();
+
+function createNode(item, levelClass) {
+  const div = document.createElement('div');
+  div.className = `node ${levelClass}`;
+  div.id = item.id;
+  div.textContent = item.text;
+  div.style.left = item.x + 'px';
+  div.style.top = item.y + 'px';
+  setTimeout(()=>div.classList.add('show'), 50);
+  div.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if(data[item.id] && !shown.has(item.id)) {
+      shown.add(item.id);
+      data[item.id].forEach(child => {
+        createNode(child, 'level2');
+        drawLine(item, child);
+      });
+    }
+  });
+  map.appendChild(div);
+}
+
+function drawLine(parent, child) {
+  const pX = parent.x + 50;
+  const pY = parent.y + 10;
+  const cX = child.x;
+  const cY = child.y + 10;
+  const length = Math.hypot(cX - pX, cY - pY);
+  const angle = Math.atan2(cY - pY, cX - pX) * 180 / Math.PI;
+  const line = document.createElement('div');
+  line.className = 'line show';
+  line.style.left = pX + 'px';
+  line.style.top = pY + 'px';
+  line.style.width = length + 'px';
+  line.style.transform = `rotate(${angle}deg)`;
+  map.appendChild(line);
+}
+
+document.getElementById('root').addEventListener('click', () => {
+  if(!shown.has('root')) {
+    shown.add('root');
+    data['root'].forEach(item => {
+      createNode(item, 'level1');
+      drawLine({x:150, y:260}, item);
+    });
+  }
+});
+</script>
+</body>
+</html>
